@@ -1,1 +1,12 @@
-
+name: my first workflow
+on: 
+  push:
+    branches:
+      - main 
+jobs:
+  job_one:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: greeting
+        run: echo "HELLO STRANGER WELCOME TO MY WOLRD"
