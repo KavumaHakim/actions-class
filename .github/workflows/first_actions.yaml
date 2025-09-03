@@ -6,15 +6,21 @@ on:
 jobs:
   job_one:
     runs-on: ubuntu-latest
+    outputs:
+      ask: ${{steps.get_output.outputs.msg}}
     steps:
       - uses: actions/checkout@v4
       - name: greeting
         run: echo "HELLO STRANGER WELCOME TO MY WOLRD"
+        
+      - name: get_output
+        id: get_output
+        run: echo "Name please" >> "$GITHUB_OUTPUT"
   job_two:
     needs: job_one
     runs-on: ubuntu-latest
     steps:
       - name: goodbye
-        run: echo "good bye"
+        run: echo "Message from job:'${{needs.job_one.outputs.ask}}'"
     
       
