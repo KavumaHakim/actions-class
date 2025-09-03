@@ -33,6 +33,6 @@ jobs:
     steps:
       - name: Using output from two
         run: | 
-          echo "job one said to job two: {{needs.job_two.outputs.radio_msg}}"
+          echo "job one said to job two: ${{needs.job_two.outputs.radio_msg}}"
     
       
