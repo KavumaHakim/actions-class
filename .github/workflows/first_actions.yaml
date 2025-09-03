@@ -15,13 +15,24 @@ jobs:
         
       - name: get_output
         id: get_output
-        run: echo "msg=Name please" >> "$GITHUB_OUTPUT"
+        run: echo "msg=JOB ONE TO JOB TWO, OVER!" >> "$GITHUB_OUTPUT"
   job_two:
     needs: job_one
     runs-on: ubuntu-latest
+    outputs: 
+      radio_msg: ${{steps.goodbye.outputs.bye}}
     steps:
       - name: goodbye
+        id: goodbye
         run: 
-          echo "Message from job:'${{ needs.job_one.outputs.ask }}'"
+          echo "bye=Message from job_one:'${{ needs.job_one.outputs.ask }}'" >> "$GITHUB_OUTPUT"
+
+  job_three:
+    needs: job_two
+    runs-on: ubuntu-latest
+    steps:
+      - name: Using output from two
+        run: | 
+          echo "job one said to job two: {{needs.job_two.outputs.radio_msg}}"
     
       
